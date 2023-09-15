@@ -34,6 +34,10 @@ jobs:
       uses: supercharge/mongodb-github-action@1.10.0
       with:
         mongodb-version: ${{ matrix.mongodb-version }}
+        mongodb-port: 42069
+        mongodb-username: ADMIN
+        mongodb-password: ADMIN
+        mongodb-db: Nota
 
     - name : Install dependencies
       run: npm ci
