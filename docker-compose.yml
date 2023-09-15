@@ -1,0 +1,23 @@
+version: '3'
+services:
+  app:
+    build:
+      context: .
+    ports:
+      - "3000:3000"
+    environment:
+      MONGO_DB_USR=ADMIN  # Cambia la URI de MongoDB según tu configuración
+      MONGO_DB_PWD=ADMIN
+      MONGO_DB_HOST=localhost
+      MONGO_DB_PORT=27017  
+  mongo:
+    image: mongo:latest
+    container_name: monguito
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ADMIN  # Cambia a tu nombre de usuario
+      MONGO_INITDB_ROOT_PASSWORD: ADMIN  # Cambia a tu contraseña
+    ports:
+      - "27017:27017"
+    volumes:
+      - ./data/db:/data/db  # Esto mapea la carpeta de datos de MongoDB al sistema de archivos local
+    command: mongod --auth
