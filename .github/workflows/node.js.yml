@@ -9,7 +9,11 @@ on:
   pull_request:
     branches: [ "main" ]
 
-
+env:  # Establece las variables de entorno para tu aplicación
+  MONGO_DB_USR: ADMIN
+  MONGO_DB_PWD: ADMIN
+  MONGO_DB_HOST: localhost
+  MONGO_DB_PORT: 27017
 
 jobs:
   build:
@@ -60,11 +64,6 @@ jobs:
 
     - run: npm run build --if-present
     - name: run test
-      env:
-        MONGO_DB_USR: ADMIN
-        MONGO_DB_PWD: ADMIN
-        MONGO_DB_HOST: localhost
-        MONGO_DB_PORT: 27017
     - run: npm test
     - name: Stop MongoDB Container
       run: docker stop monguito
