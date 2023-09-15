@@ -22,8 +22,6 @@ jobs:
         mongodb-version: ['6.0']
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
-<<<<<<< HEAD
-=======
 
     # se puede borrar
     services:
@@ -38,7 +36,6 @@ jobs:
         volumes:
          - ./data:/data/db
 
->>>>>>> 4dea44f307cf72d9bdb0d0944718a4b09deafe23
     steps:
     - name: Git Checkout
       uses: actions/checkout@v3
@@ -63,11 +60,11 @@ jobs:
 
     - run: npm run build --if-present
     - name: run test
-    env:  # Establece las variables de entorno para tu aplicación
-      MONGO_DB_USR: ADMIN
-      MONGO_DB_PWD: ADMIN
-      MONGO_DB_HOST: 127.0.0.1
-      MONGO_DB_PORT: 27017
+      env:
+        MONGO_DB_USR: ADMIN
+        MONGO_DB_PWD: ADMIN
+        MONGO_DB_HOST: localhost
+        MONGO_DB_PORT: 27017
     - run: npm test
     - name: Stop MongoDB Container
       run: docker stop monguito
