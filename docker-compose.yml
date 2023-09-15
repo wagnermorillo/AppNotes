@@ -3,6 +3,7 @@ services:
   app:
     build:
       context: .
+      dockerfile: Dockerfile  # Nombre de tu Dockerfile
     ports:
       - "3000:3000"
     environment:
