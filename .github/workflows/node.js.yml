@@ -34,7 +34,7 @@ jobs:
         ports:
           - 27017:27017
         options: --name monguito
-        environment:
+        env:
           MONGO_INITDB_ROOT_USERNAME: ADMIN
           MONGO_INITDB_ROOT_PASSWORD: ADMIN
         volumes:
