@@ -4,11 +4,19 @@ const app = require('../app');
 
 require('dotenv').config();
 
-const {MONGO_DB_USR, MONGO_DB_PWD, MONGO_DB_HOST, MONGO_DB_PORT, MONGO_DB_NAME} =
-  process.env;
-const credentials = MONGO_DB_USR ? `${MONGO_DB_USR}:${MONGO_DB_PWD}@` : '';
-const mongoURI = `mongodb://${credentials}${MONGO_DB_HOST}:${MONGO_DB_PORT}/${MONGO_DB_NAME}`;
+const {MONGO_DB_USR, MONGO_DB_PWD, MONGO_DB_HOST, MONGO_DB_PORT, MONGO_DB_NAME, MONGOURL} = process.env;
+let mongoURI;
+if (MONGOURL) {
+  // Si MONGOURL está definida, úsala como la cadena de conexión
+  mongoURI = MONGOURL;
+} else {
+  // Si MONGOURL no está definida, construye la cadena de conexión utilizando las variables individuales
+  const credentials = MONGO_DB_USR ? `${MONGO_DB_USR}:${MONGO_DB_PWD}@` : '';
+  mongoURI = `mongodb://${credentials}${MONGO_DB_HOST}:${MONGO_DB_PORT}/${MONGO_DB_NAME}`;
+}
+
 console.log(mongoURI);
+
 
 /* Connecting to the database before each test. */
 beforeAll(async () => {

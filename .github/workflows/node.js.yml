@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [18.x]
+        node-version: [18.x, 20.x]
         mongodb-version: ['5.0', '6.0']
 
     steps:
@@ -23,19 +23,14 @@ jobs:
       uses: supercharge/mongodb-github-action@1.10.0
       with:
         mongodb-version: ${{ matrix.mongodb-version }}
-        mongodb-username: ADMIN
-        mongodb-password: ADMIN
-        mongodb-db: Nota
+        mongodb-port: 27017
 
     - name: Install dependencies
       run: npm ci
 
     - name: Configure Node.js environment variables
       env:
-        MONGO_DB_USR: ${{ secrets.MONGO_DB_USR }}
-        MONGO_DB_PWD: ${{ secrets.MONGO_DB_PWD }}
-        MONGO_DB_HOST: ${{ secrets.MONGO_DB_HOST }}
-        MONGO_DB_PORT: ${{ secrets.MONGO_DB_PORT }}
+        MONGOURL: ${{ secrets.MONGOURL }}
       run: |
         echo "MONGOURI=${MONGOURI}" >> $GITHUB_ENV
 

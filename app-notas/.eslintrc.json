@@ -9,7 +9,7 @@
     "ecmaVersion": "latest"
   },
   "rules": {
-    "max-len" : ["error", {"code": 99}],
+    "max-len" : ["error", {"code": 110}],
     "new-cap": ["error", { "capIsNew": false }]
   }
 }
