@@ -45,7 +45,7 @@ jobs:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
 
-    # se puede borrar
+
     - name: Wait for MongoDB to be ready
       run: |
           while ! nc -z localhost 27017; do sleep 1; done
