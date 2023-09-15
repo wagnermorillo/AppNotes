@@ -40,5 +40,5 @@ jobs:
     - name: Run lint
       run: npm run lint
 
-    -name: Run seed
+    - name: Run seed
       run: npm run seed
