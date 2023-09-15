@@ -9,11 +9,6 @@ on:
   pull_request:
     branches: [ "main" ]
 
-env:  # Establece las variables de entorno para tu aplicación
-  MONGO_DB_USR: ADMIN
-  MONGO_DB_PWD: ADMIN
-  MONGO_DB_HOST: 127.0.0.1
-  MONGO_DB_PORT: 27017
 
 jobs:
   build:
