@@ -29,6 +29,6 @@ jobs:
 
     - name : Install dependencies
       run: npm ci
-      working-directory: /home/runner/work/CI-CD/CI-CD/app-notas
+
     - run: npm run build --if-present
     - run: npm test
