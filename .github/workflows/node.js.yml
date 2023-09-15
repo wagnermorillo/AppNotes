@@ -32,7 +32,7 @@ jobs:
       env:
         MONGOURL: ${{ secrets.MONGOURL }}
       run: |
-        echo "MONGOURI=${MONGOURI}" >> $GITHUB_ENV
+        echo "MONGOURL=${MONGOURL}" >> $GITHUB_ENV
 
     - name: Run tests
       run: npm test
