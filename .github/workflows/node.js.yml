@@ -1,42 +1,41 @@
-# This workflow will do a clean installation of node dependencies, cache/restore them, build the source code and run tests across different versions of node
-# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-nodejs
+name: Run tests with authentication
 
-name: Node.js CI
-
-on:
-  push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
-
+on: [push]
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
     strategy:
       matrix:
-        node-version: [18.x]
-        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+        node-version: [18.x, 20.x]
+        mongodb-version: ['4.2', '4.4', '5.0', '6.0']
 
     steps:
-    - name: Git Checkout
+    - name: Git checkout
       uses: actions/checkout@v3
-
-    - name: Build docker image
-      run: docker build -t my-app .
-
-    - name: Build docker image
-      run: docker-compose up -d
 
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v3
       with:
         node-version: ${{ matrix.node-version }}
-        cache: 'npm'
 
-    - run: npm ci
-    - run: npm run build --if-present
-    - run: npm test
+    - name: Start MongoDB
+      uses: supercharge/mongodb-github-action@1.10.0
+      with:
+        mongodb-version: ${{ matrix.mongodb-version }}
+        mongodb-username: ADMIN
+        mongodb-password: ADMIN
+        mongodb-db: Nota
 
+    - name: Install dependencies
+      run: npm ci
+
+    - name: Configure Node.js environment variables
+      run: |
+        echo "MONGO_DB_USR=supercharge" >> $GITHUB_ENV
+        echo "MONGO_DB_PWD=secret" >> $GITHUB_ENV
+        echo "MONGO_DB_HOST=localhost" >> $GITHUB_ENV
+        echo "MONGO_DB_PORT=27017" >> $GITHUB_ENV
+
+    - name: Run tests
+      run: npm test
