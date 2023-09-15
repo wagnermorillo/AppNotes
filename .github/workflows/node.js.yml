@@ -36,3 +36,15 @@ jobs:
 
     - name: Run tests
       run: npm test
+
+    - name: Run start
+      run: npm run start
+
+    - name: Run cluster
+      run: npm run cluster
+
+    - name: Run seed
+      run: npm run seed
+
+    - name: Run lint
+      run: npm run lint
