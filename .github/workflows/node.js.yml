@@ -32,8 +32,8 @@ jobs:
 
     - name: Configure Node.js environment variables
       run: |
-        echo "MONGO_DB_USR=supercharge" >> $GITHUB_ENV
-        echo "MONGO_DB_PWD=secret" >> $GITHUB_ENV
+        echo "MONGO_DB_USR=ADMIN" >> $GITHUB_ENV
+        echo "MONGO_DB_PWD=ADMIN" >> $GITHUB_ENV
         echo "MONGO_DB_HOST=localhost" >> $GITHUB_ENV
         echo "MONGO_DB_PORT=27017" >> $GITHUB_ENV
 
