@@ -34,6 +34,11 @@ jobs:
         ports:
           - 27017:27017
         options: --name monguito
+        environment:
+          MONGO_INITDB_ROOT_USERNAME: ADMIN
+          MONGO_INITDB_ROOT_PASSWORD: ADMIN
+        volumes:
+         - ./data:/data/db
 
     steps:
     - name: Git Checkout
@@ -44,12 +49,6 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-
-    # se puede borrar
-    - name: Wait for MongoDB to be ready
-      run: |
-          while ! nc -z localhost 27017; do sleep 1; done
-          timeout-minutes: 2
 
     - name: Start MongoDB
       uses: supercharge/mongodb-github-action@1.10.0
@@ -65,3 +64,5 @@ jobs:
 
     - run: npm run build --if-present
     - run: npm test
+    - name: Stop MongoDB Container
+      run: docker stop monguito
