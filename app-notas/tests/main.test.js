@@ -3,11 +3,7 @@ const request = require('supertest');
 const app = require('../app');
 
 require('dotenv').config();
-
-const {MONGO_DB_USR, MONGO_DB_PWD, MONGO_DB_HOST, MONGO_DB_PORT} =
-  process.env;
-const credentials = MONGO_DB_USR ? `${MONGO_DB_USR}:${MONGO_DB_PWD}@` : '';
-const mongoURI = `mongodb://${credentials}${MONGO_DB_HOST}:${MONGO_DB_PORT}/Nota`;
+const mongoURI = process.env.MONGOURI;
 console.log(mongoURI);
 
 /* Connecting to the database before each test. */

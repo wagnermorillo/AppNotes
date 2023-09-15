@@ -23,18 +23,16 @@ jobs:
       uses: supercharge/mongodb-github-action@1.10.0
       with:
         mongodb-version: ${{ matrix.mongodb-version }}
-        mongodb-replica-set: test-rs
         mongodb-port: 27017
 
     - name: Install dependencies
       run: npm ci
 
     - name: Configure Node.js environment variables
+      env:
+        MONGOURI: ${{ secrets.MONGOURI }}
       run: |
-        echo "MONGO_DB_USR=ADMIN" >> $GITHUB_ENV
-        echo "MONGO_DB_PWD=ADMIN" >> $GITHUB_ENV
-        echo "MONGO_DB_HOST=localhost" >> $GITHUB_ENV
-        echo "MONGO_DB_PORT=27017" >> $GITHUB_ENV
+        echo "MONGOURI=${MONGOURI}" >> $GITHUB_ENV
 
     - name: Run tests
       run: npm test
