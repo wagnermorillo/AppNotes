@@ -47,7 +47,7 @@ jobs:
 
     # se puede borrar
     - name: Wait for MongoDB to be ready
-        run: |
+      run: |
           while ! nc -z localhost 27017; do sleep 1; done
         timeout-minutes: 2
 
