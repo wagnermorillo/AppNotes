@@ -95,7 +95,7 @@ app.post("/api/note", (req, res, next) => {
   const note = new Notes({ title, description });
   note.save((err, note) => {
     if (err) return next(err);
-    res.status(201).json({});
+    res.status(201).json({note});
   });
 });
 
@@ -136,7 +136,7 @@ app.delete("/api/note/:id", (req, res, next) => {
   Notes.findByIdAndRemove(id, { useFindAndModify: false }, (err, document) => {
     if (err) return next(err);
     res
-      .status(500)
+      .status(201)
       .json({ deleted: true, document, message: "Note deleted successfully" });
   });
 });
