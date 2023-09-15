@@ -1,6 +1,6 @@
 # CI-CD
 ## TareaNode
-Proyecto maduro, que tiene como funcionalidades la crear notas con titulos y texto para dar una descripcion de esta nota, perfecta para anotar recordatorios, fechas importantes entre otras cosas..
+Proyecto maduro, que tiene como funcionalidades la crear notas con titulos y texto para dar una descripcion de esta nota, perfecta para anotar recordatorios, fechas importantes entre otras cosas.
 
 ## Instalación
 Para instalación de la dependencias se abstiene al principio de los 12 factor app, con hincapié en el factor 2 de dependecies, se encuentran enumeradas en el archivo "package.json", añadir de que se trata de un proyecto en las tecnologías de node.js y express.js y por ende en el lenguaje de programación javascript.
