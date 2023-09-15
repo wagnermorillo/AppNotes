@@ -32,9 +32,12 @@ jobs:
 
     - name: Configure Node.js environment variables
       env:
-        MONGOURI: ${{ secrets.MONGOURI }}
+        MONGO_DB_USR: ${{ secrets.MONGO_DB_USR }}
+        MONGO_DB_PWD: ${{ secrets.MONGO_DB_PWD }}
+        MONGO_DB_HOST: ${{ secrets.MONGO_DB_HOST }}
+        MONGO_DB_PORT: ${{ secrets.MONGO_DB_PORT }}
       run: |
         echo "MONGOURI=${MONGOURI}" >> $GITHUB_ENV
-
+        echo "MONGO_DB_USR=${MONGO_DB_USR }" >> $GITHUB_ENV
     - name: Run tests
       run: npm test

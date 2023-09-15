@@ -8,10 +8,10 @@ const Note = require('./database.js'); // Asegúrate de importar tu modelo de no
 const notesFilePath = './notes.json';
 
 
-const {MONGO_DB_USR, MONGO_DB_PWD, MONGO_DB_HOST, MONGO_DB_PORT} =
+const {MONGO_DB_USR, MONGO_DB_PWD, MONGO_DB_HOST, MONGO_DB_PORT, MONGO_DB_NAME} =
   process.env;
 const credentials = MONGO_DB_USR ? `${MONGO_DB_USR}:${MONGO_DB_PWD}@` : '';
-const mongoURI = `mongodb://${credentials}${MONGO_DB_HOST}:${MONGO_DB_PORT}/Nota`;
+const mongoURI = `mongodb://${credentials}${MONGO_DB_HOST}:${MONGO_DB_PORT}/${MONGO_DB_NAME}`;
 
 
 mongoose.connect(mongoURI, {useNewUrlParser: true, useUnifiedTopology: true})
