@@ -1,0 +1,5 @@
+__MACOSX/
+.github/
+.README.md
+.gitignore
+/app-notas/node_modules/
