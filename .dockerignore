@@ -1,5 +1,9 @@
 __MACOSX/
 .github/
-.README.md
+.git/
+README.md
 .gitignore
-/app-notas/node_modules/
+node_modules/
+ejemplo-funcional.gif
+Pr*
+*env

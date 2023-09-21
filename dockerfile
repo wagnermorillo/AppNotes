@@ -2,7 +2,7 @@
 FROM node:18-alpine
 
 # Crear un directorio para la aplicación
-WORKDIR /usr/src/app/app-notas
+WORKDIR /usr/src/app
 
 # Copiar el archivo package.json y package-lock.json
 COPY package*.json ./
