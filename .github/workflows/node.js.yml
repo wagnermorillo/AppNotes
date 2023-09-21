@@ -44,7 +44,7 @@ jobs:
     - name: Run lint
       run: npm run lint
 
-  Docker_image:
+  Docker:
     needs: build
     runs-on: ubuntu-latest
 
@@ -71,5 +71,5 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/app-notes:latest
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/12factor-app:latest
 
