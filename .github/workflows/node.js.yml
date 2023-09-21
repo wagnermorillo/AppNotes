@@ -44,7 +44,7 @@ jobs:
     - name: Run lint
       run: npm run lint
 
-  Docker Image:
+  Docker_image:
     needs: build
     runs-on: ubuntu-latest
 
