@@ -1,9 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
-require('./tracing')
-const { trace, context } = require('@opentelemetry/api');
-
+require('./tracing');
 
 require('dotenv').config();
 
@@ -22,27 +20,6 @@ app.use((req, res, next) => {
   next();
 });
 
-// Middleware de OpenTelemetry
-function opentelemetryMiddleware(req, res, next) {
-  const currentSpan = trace.getSpan(context.active());
-
-  if (currentSpan) {
-      // Añadir atributos adicionales al span
-      currentSpan.setAttribute('http.route', req.path);
-      currentSpan.setAttribute('http.method', req.method);
-
-      // Por ejemplo, si tienes información del usuario en la solicitud, también podrías añadirla
-      if (req.user) {
-          currentSpan.setAttribute('user.id', req.user.id);
-      }
-  }
-
-  // Continuar con el siguiente middleware o ruta
-  next();
-}
-
-// Usa el middleware de OpenTelemetry
-app.use(opentelemetryMiddleware);
 
 app.get('/', (req, res, next) => {
   res.redirect('/index');

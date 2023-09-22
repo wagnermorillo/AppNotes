@@ -1,35 +1,21 @@
-// tracing.js
-'use strict'
-const process = require('process');
-const opentelemetry = require('@opentelemetry/sdk-node');
-const { getNodeAutoInstrumentations } = require('@opentelemetry/auto-instrumentations-node');
-const { OTLPTraceExporter } = require('@opentelemetry/exporter-trace-otlp-http');
-const { Resource } = require('@opentelemetry/resources');
-const { SemanticResourceAttributes } = require('@opentelemetry/semantic-conventions');
+const {trace} = require('@opentelemetry/api');
+const {NodeTracerProvider} = require('@opentelemetry/node');
+const {SimpleSpanProcessor} = require('@opentelemetry/tracing');
+const {ZipkinExporter} = require('@opentelemetry/exporter-zipkin');
 
-const exporterOptions = {
-   url: 'http://localhost:4318/v1/traces'
-   }
-   
-const traceExporter = new OTLPTraceExporter(exporterOptions);
-const sdk = new opentelemetry.NodeSDK({
-   traceExporter,
-   instrumentations: [getNodeAutoInstrumentations()],
-   resource: new Resource({
-      [SemanticResourceAttributes.SERVICE_NAME]: 'node_app'
-      })
-});
+const provider = new NodeTracerProvider();
 
-// initialize the SDK and register with the OpenTelemetry API
-// this enables the API to record telemetry
+const zipkinOptions = {
+  // URL del servidor Zipkin al que enviar los datos
+  url: 'http://localhost:9411/api/v2/spans',
+  // El nombre de servicio es una identificación para tu aplicación
+  serviceName: 'nodeApp',
+};
+const exporter = new ZipkinExporter(zipkinOptions);
 
-sdk.start()
+provider.addSpanProcessor(new SimpleSpanProcessor(exporter));
 
-// gracefully shut down the SDK on process exit
-process.on('SIGTERM', () => {
-   sdk.shutdown()
- .then(() => console.log('Tracing terminated'))
- .catch((error) => console.log('Error terminating tracing', error))
- .finally(() => process.exit(0));
- });
+// Inicializa el proveedor de trazas
+provider.register();
 
+console.log('Tracing initialized');
