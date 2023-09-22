@@ -9,7 +9,11 @@ services:
       - "3001:3000"
     links: 
       - myMongoDB
-    
+    environment:
+      - MONGO_DB_USR=ADMIN
+    env_file:
+      - .env.production
+
   myMongoDB:
     container_name: myMongoDB
     image: mongo:latest

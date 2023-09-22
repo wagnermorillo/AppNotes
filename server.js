@@ -14,7 +14,7 @@ if (MONGOURL) {
   mongoURI = `mongodb://${credentials}${MONGO_DB_HOST}:${MONGO_DB_PORT}/${MONGO_DB_NAME}`;
 }
 
-console.log(mongoURI);
+console.error(mongoURI);
 mongoose.connect(mongoURI, {useNewUrlParser: true, useUnifiedTopology: true})
     .then(() => {
       app.listen(port, (arg) => {
