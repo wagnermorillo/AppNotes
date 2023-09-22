@@ -1,4 +1,3 @@
-const {trace} = require('@opentelemetry/api');
 const {NodeTracerProvider} = require('@opentelemetry/node');
 const {SimpleSpanProcessor} = require('@opentelemetry/tracing');
 const {ZipkinExporter} = require('@opentelemetry/exporter-zipkin');

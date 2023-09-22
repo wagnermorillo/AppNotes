@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
 require('./tracing');
+const {trace} = require('@opentelemetry/api');
 
 require('dotenv').config();
 
@@ -20,6 +21,27 @@ app.use((req, res, next) => {
   next();
 });
 
+
+app.use(bodyParser.json());
+
+app.use((req, res, next) => {
+  // Iniciar un span para esta solicitud
+  const tracer = trace.getTracer('express-app'); // El nombre 'express-app' puede ser cualquier string que identifique tu app/servicio
+  const span = tracer.startSpan('middleware-span');
+
+  // Capturar la información deseada
+  span.setAttribute('http.user_agent', req.headers['user-agent']);
+  span.setAttribute('http.client_ip', req.headers['x-forwarded-for'] || req.connection.remoteAddress);
+  span.setAttribute('http.query_params', JSON.stringify(req.query));
+  span.setAttribute('http.request_body', JSON.stringify(req.body));
+
+  // Asegurarse de finalizar el span cuando termine la solicitud
+  res.on('finish', () => {
+    span.end();
+  });
+
+  next();
+});
 
 app.get('/', (req, res, next) => {
   res.redirect('/index');
