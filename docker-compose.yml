@@ -17,7 +17,7 @@ services:
   myMongoDB:
     container_name: myMongoDB
     image: mongo:latest
-    ports:
-      - "27017:27017"
+    #ports:
+     # - "27017:27017"
 
 
